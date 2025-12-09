@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-busybox-pod
+  namespace: tp2
+  labels:
+    app: nginx-busybox
+spec:
+  containers:
+  - name: nginx
+    image: nginx:1.29.3-alpine-slim
+    ports:
+    - containerPort: 80
+      protocol: TCP
+  - name: busybox
+    image: busybox:latest
+    env:
+    - name: USER
+      value: "root"
+    - name: PASSWORD
+      value: "123456"
+    command: ["/bin/sh"]
+    args:
+    - -c
+    - |
+      while true; do
+        echo "$(date): Making request to nginx..."
+        wget -q -O- http://localhost:80 || echo "Request failed"
+        sleep 10
+      done
+

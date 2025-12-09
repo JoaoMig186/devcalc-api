@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: tp2
+  labels:
+    name: tp2
+    purpose: tp2-performance-test
+

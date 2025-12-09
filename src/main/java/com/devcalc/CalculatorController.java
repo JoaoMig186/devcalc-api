@@ -31,4 +31,9 @@ public class CalculatorController {
     public double divide(@RequestParam double a, @RequestParam double b) {
         return service.divide(a, b);
     }
+
+    @GetMapping("health")
+    public String health() {
+        return "OK";
+    }
 }
