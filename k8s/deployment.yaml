@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devcalc-api-deployment
+  namespace: tp2
+  labels:
+    app: devcalc-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devcalc-api
+  template:
+    metadata:
+      labels:
+        app: devcalc-api
+    spec:
+      containers:
+      - name: devcalc-api
+        image: joaomsant0s/devcalc-api:latest
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+

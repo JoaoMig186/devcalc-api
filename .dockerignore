@@ -1,0 +1,13 @@
+target/
+.idea/
+.git/
+*.iml
+*.ipr
+*.iws
+.DS_Store
+.vscode/
+nbproject/
+.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
