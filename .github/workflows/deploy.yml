@@ -1,0 +1,50 @@
+name: Deploy Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  ENVIRONMENT: staging
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Definir credenciais conforme o ambiente
+        id: set-creds
+        run: |
+          if [ "$ENVIRONMENT" = "dev" ]; then
+            echo "API_KEY=${{ secrets.API_KEY_DEV }}" >> $GITHUB_ENV
+            echo "Ambiente selecionado: dev"
+          
+          elif [ "$ENVIRONMENT" = "staging" ]; then
+            echo "API_KEY=${{ secrets.API_KEY_STAGING }}" >> $GITHUB_ENV
+            echo "Ambiente selecionado: staging"
+          
+          elif [ "$ENVIRONMENT" = "prod" ]; then
+            echo "API_KEY=${{ secrets.API_KEY_PROD }}" >> $GITHUB_ENV
+            echo "Ambiente selecionado: prod"
+          
+          else
+            echo "Erro: ENVIRONMENT inválido!" 
+            exit 1
+          fi
+
+      - name: Executar deploy
+        run: |
+          echo "Iniciando deploy no ambiente: $ENVIRONMENT"
+          echo "Usando credenciais seguras (não exibidas)"
+          
+          if [ "$ENVIRONMENT" = "dev" ]; then
+            echo "Deploy em desenvolvimento concluído"
+          elif [ "$ENVIRONMENT" = "staging" ]; then
+            echo "Deploy em staging concluído"
+          elif [ "$ENVIRONMENT" = "prod" ]; then
+            echo "Deploy em PRODUÇÃO concluído"
+          fi
