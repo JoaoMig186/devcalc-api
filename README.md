@@ -1,3 +1,5 @@
+![Maven CI](https://github.com/JoaoMig186/devcalc-api/actions/workflows/gradle-ci.yml/badge.svg)
+
 # DevCalc API
 
 API REST de calculadora desenvolvida em Spring Boot que oferece operações matemáticas básicas através de endpoints HTTP.
